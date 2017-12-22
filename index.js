@@ -2,8 +2,7 @@ var dictionarySv = require('dictionary-sv');
 var dictionaryEnUs = require('dictionary-en-us');
 var nspell = require('nspell');
 var svCustom = require('./sv-cust.json')
-// var sv = require('./sv.json');
-// var en = require('./en.json');
+var enCustom = require('./en-cust.json')
 
     // Usage:
     // console.log(spell.correct('colour')); //=> false
@@ -50,6 +49,8 @@ function checkSpelling(langJson, lang) {
             }
         
             var spell = nspell(dict);
+
+            spell.personal(enCustom.words.join('\n'));
         
             spellErrorExists = traverseSpellCheck(langJson, spell);
         });
