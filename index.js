@@ -61,12 +61,10 @@ function checkSpelling(langJson, lang) {
         });
     } else {
         console.error('Language not supported.')
-        process.exit(1);
+        return false;
     }
 
-    if (spellErrorExists) {
-        process.exit(2);
-    }
+    return !spellErrorExists;
 }
 
 
