@@ -29,7 +29,7 @@ module.exports = checkSpelling;
 function checkSpelling(langJson, lang) {
     var promise = new Promise((resolve, reject) => {
         if (lang === 'sv') {
-            console.log('Spell checking sv...');
+            console.log(`Spell checking "${lang}"...`);
             dictionarySv((err, dict) => {
                 if (err) {
                     throw err;
@@ -41,12 +41,12 @@ function checkSpelling(langJson, lang) {
 				
 				let spellErrors = traverseSpellCheck(langJson, spell);
 				
-				console.log('Spell checking done.');
+				console.log(`Spell checking "${lang}" done.`);
 				
 				resolve(spellErrors);
             });
         } else if (lang === 'en-us') {
-            console.log('Spell checking en-us...');
+            console.log(`Spell checking "${lang}"...`);
             dictionaryEnUs((err, dict) => {
                 if (err) {
                     throw err;
@@ -58,7 +58,7 @@ function checkSpelling(langJson, lang) {
             
                 let spellErrors = traverseSpellCheck(langJson, spell);
 				
-				console.log('Spell checking done.');
+				console.log(`Spell checking "${lang}" done.`);
 				
 				resolve(spellErrors);
             });
