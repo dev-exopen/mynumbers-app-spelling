@@ -28,7 +28,7 @@ module.exports = checkSpelling;
 
 function checkSpelling(langJson, lang) {
     var promise = new Promise((resolve, reject) => {
-        var spellErrorExists = false;
+        let spellErrorExists = false;
 
         if (lang === 'sv') {
             console.log('Spell checking sv...');
@@ -37,7 +37,7 @@ function checkSpelling(langJson, lang) {
                     throw err;
                 }
             
-                var spell = nspell(dict);
+                let spell = nspell(dict);
             
                 spell.personal(svCustom.words.join('\n'));
             
@@ -53,7 +53,7 @@ function checkSpelling(langJson, lang) {
                     throw err;
                 }
             
-                var spell = nspell(dict);
+                let spell = nspell(dict);
     
                 spell.personal(enCustom.words.join('\n'));
             
@@ -74,13 +74,13 @@ function checkSpelling(langJson, lang) {
 
 
 function traverseSpellCheck(langJson, spell) {
-    var foundSpellError = false;
+    let foundSpellError = false;
 
     for (key in langJson) {
         if (!!langJson[key] && typeof(langJson[key])=="object") {
             traverseSpellCheck(langJson[key], spell);
         } else {
-            var words = langJson[key].split(/\s/);
+            let words = langJson[key].split(/\s/);
             words.forEach(word => {
                 word = word
                     .replace(/[\.,”!\?\(\)]/g, '')
@@ -89,7 +89,7 @@ function traverseSpellCheck(langJson, spell) {
                     .replace(/.+}}/g, '')
                     .replace(/{{.+/g, '');
                 if (word.length > 3) {
-                    var ok = spell.correct(word);
+                    let ok = spell.correct(word);
                     if (ok === false) {
                         console.log(`'${word}' is not spelled correctly.`);
                         foundSpellError = true;
