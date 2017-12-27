@@ -26,7 +26,7 @@ var enCustom = require('./en-cust.json')
 
 module.exports = checkSpelling;
 
-function checkSpelling(langJson, lang) {
+function checkSpelling(langJson, lang, cb) {
     var spellErrorExists = false;
 
     if (lang === 'sv') {
@@ -43,6 +43,7 @@ function checkSpelling(langJson, lang) {
             spellErrorExists = traverseSpellCheck(langJson, spell);
 
             console.log('Spell check done!');
+            cb(!spellErrorExists);
         });
     } else if (lang === 'en-us') {
         console.log('Spell checking en-us...');
@@ -58,13 +59,12 @@ function checkSpelling(langJson, lang) {
             spellErrorExists = traverseSpellCheck(langJson, spell);
 
             console.log('Spell check done!');
+            cb(!spellErrorExists);
         });
     } else {
         console.error('Language not supported.')
-        return false;
+        cb(null);
     }
-
-    return !spellErrorExists;
 }
 
 
@@ -95,6 +95,6 @@ function traverseSpellCheck(langJson, spell) {
         }
     }
 
-    return !foundSpellError;
+    return foundSpellError;
 }    
 
