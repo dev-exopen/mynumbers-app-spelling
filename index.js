@@ -26,45 +26,49 @@ var enCustom = require('./en-cust.json')
 
 module.exports = checkSpelling;
 
-function checkSpelling(langJson, lang, cb) {
-    var spellErrorExists = false;
+function checkSpelling(langJson, lang) {
+    var promise = new Promise((resolve, reject) => {
+        var spellErrorExists = false;
 
-    if (lang === 'sv') {
-        console.log('Spell checking sv...');
-        dictionarySv((err, dict) => {
-            if (err) {
-                throw err;
-            }
-        
-            var spell = nspell(dict);
-        
-            spell.personal(svCustom.words.join('\n'));
-        
-            spellErrorExists = traverseSpellCheck(langJson, spell);
+        if (lang === 'sv') {
+            console.log('Spell checking sv...');
+            dictionarySv((err, dict) => {
+                if (err) {
+                    throw err;
+                }
+            
+                var spell = nspell(dict);
+            
+                spell.personal(svCustom.words.join('\n'));
+            
+                spellErrorExists = traverseSpellCheck(langJson, spell);
+    
+                console.log('Spell check done!');
+                resolve(!spellErrorExists);
+            });
+        } else if (lang === 'en-us') {
+            console.log('Spell checking en-us...');
+            dictionaryEnUs((err, dict) => {
+                if (err) {
+                    throw err;
+                }
+            
+                var spell = nspell(dict);
+    
+                spell.personal(enCustom.words.join('\n'));
+            
+                spellErrorExists = traverseSpellCheck(langJson, spell);
+    
+                console.log('Spell check done!');
+                resolve(!spellErrorExists);
+            });
+        } else {
+            console.error('Language not supported.')
+            reject(null);
+        }
+    });
 
-            console.log('Spell check done!');
-            cb(!spellErrorExists);
-        });
-    } else if (lang === 'en-us') {
-        console.log('Spell checking en-us...');
-        dictionaryEnUs((err, dict) => {
-            if (err) {
-                throw err;
-            }
-        
-            var spell = nspell(dict);
-
-            spell.personal(enCustom.words.join('\n'));
-        
-            spellErrorExists = traverseSpellCheck(langJson, spell);
-
-            console.log('Spell check done!');
-            cb(!spellErrorExists);
-        });
-    } else {
-        console.error('Language not supported.')
-        cb(null);
-    }
+    return promise;
 }
 
 

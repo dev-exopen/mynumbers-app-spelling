@@ -6,9 +6,13 @@ Usage:
 var spellCheck = require('mynumbers-app-spelling');
 var sv = require('./sv.json');
 
-spellCheck(sv, 'sv', result => {
-    console.log(result); // true if OK. false if spelling errors found.
-});
+spellCheck(sv, 'sv').then(result => {
+    if (result) {
+        console.log('No spelling errors.');
+    } else {
+        console.log('Spelling errors.');
+    }
+})
 ```
 
 The second parameter is either `'sv'` or `'en-us'`.
