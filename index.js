@@ -30,6 +30,7 @@ function checkSpelling(langJson, lang) {
     var spellErrorExists = false;
 
     if (lang === 'sv') {
+        console.log('Spell checking sv...')
         dictionarySv((err, dict) => {
             if (err) {
                 throw err;
@@ -43,6 +44,7 @@ function checkSpelling(langJson, lang) {
             
         });
     } else if (lang === 'en-us') {
+        console.log('Spell checking en-us...')
         dictionaryEnUs((err, dict) => {
             if (err) {
                 throw err;
