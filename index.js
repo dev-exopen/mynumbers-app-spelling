@@ -41,7 +41,8 @@ function checkSpelling(langJson, lang) {
             spell.personal(svCustom.words.join('\n'));
         
             spellErrorExists = traverseSpellCheck(langJson, spell);
-            
+
+            console.log('Spell check done!');
         });
     } else if (lang === 'en-us') {
         console.log('Spell checking en-us...');
@@ -55,6 +56,8 @@ function checkSpelling(langJson, lang) {
             spell.personal(enCustom.words.join('\n'));
         
             spellErrorExists = traverseSpellCheck(langJson, spell);
+
+            console.log('Spell check done!');
         });
     } else {
         console.error('Language not supported.')
@@ -64,7 +67,6 @@ function checkSpelling(langJson, lang) {
     if (spellErrorExists) {
         process.exit(2);
     }
-    console.log('Spell check OK!');
 }
 
 
@@ -78,7 +80,12 @@ function traverseSpellCheck(langJson, spell) {
         } else {
             var words = langJson[key].split(/\s/);
             words.forEach(word => {
-                word = word.replace(/[\.,”!\?\(\)]/g, '').replace(/{{.+}}/g, '');
+                word = word
+                    .replace(/[\.,”!\?\(\)]/g, '')
+                    .replace(/{{.+}}/g, '')
+                    .replace(/<.+>/g, '')
+                    .replace(/.+}}/g, '')
+                    .replace(/{{.+/g, '');
                 if (word.length > 3) {
                     var ok = spell.correct(word);
                     if (ok === false) {
