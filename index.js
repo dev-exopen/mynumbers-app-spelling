@@ -28,8 +28,6 @@ module.exports = checkSpelling;
 
 function checkSpelling(langJson, lang) {
     var promise = new Promise((resolve, reject) => {
-        let spellErrorExists = false;
-
         if (lang === 'sv') {
             console.log('Spell checking sv...');
             dictionarySv((err, dict) => {
@@ -40,11 +38,12 @@ function checkSpelling(langJson, lang) {
                 let spell = nspell(dict);
             
                 spell.personal(svCustom.words.join('\n'));
-            
-                spellErrorExists = traverseSpellCheck(langJson, spell);
-    
-                console.log('Spell check done!');
-                resolve(!spellErrorExists);
+				
+				let spellErrors = traverseSpellCheck(langJson, spell);
+				
+				console.log('Spell checking done.');
+				
+				resolve(spellErrors);
             });
         } else if (lang === 'en-us') {
             console.log('Spell checking en-us...');
@@ -57,10 +56,11 @@ function checkSpelling(langJson, lang) {
     
                 spell.personal(enCustom.words.join('\n'));
             
-                spellErrorExists = traverseSpellCheck(langJson, spell);
-    
-                console.log('Spell check done!');
-                resolve(!spellErrorExists);
+                let spellErrors = traverseSpellCheck(langJson, spell);
+				
+				console.log('Spell checking done.');
+				
+				resolve(spellErrors);
             });
         } else {
             console.error('Language not supported.')
@@ -73,12 +73,13 @@ function checkSpelling(langJson, lang) {
 
 
 
-function traverseSpellCheck(langJson, spell) {
-    let foundSpellError = false;
-
+function traverseSpellCheck(langJson, spell, spellErrors) {
+	if (spellErrors == null) {
+		spellErrors = [];
+	}
     for (key in langJson) {
         if (!!langJson[key] && typeof(langJson[key])=="object") {
-            traverseSpellCheck(langJson[key], spell);
+            traverseSpellCheck(langJson[key], spell, spellErrors);
         } else {
             let words = langJson[key].split(/\s/);
             words.forEach(word => {
@@ -91,14 +92,12 @@ function traverseSpellCheck(langJson, spell) {
                 if (word.length > 3) {
                     let ok = spell.correct(word);
                     if (ok === false) {
-                        console.log(`'${word}' is not spelled correctly.`);
-                        foundSpellError = true;
+						spellErrors.push(word);
                     }
                 }    
             });
         }
     }
-
-    return foundSpellError;
+	return spellErrors;
 }    
 
