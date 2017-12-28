@@ -84,12 +84,18 @@ function traverseSpellCheck(langJson, spell, spellErrors) {
             let words = langJson[key].split(/\s/);
             words.forEach(word => {
                 word = word
-                    .replace(/[\.,”!\?\(\)]/g, '')
-                    .replace(/{{.+}}/g, '')
-                    .replace(/<.+>/g, '')
-                    .replace(/.+}}/g, '')
-                    .replace(/{{.+/g, '');
-                if (word.length > 3) {
+                    .replace(/[\.,:”"!\?\(\)]/g, '') // remove special characters
+                    .replace(/{{.+}}/g, '') // remove variables in translations
+                    .replace(/<.+>/g, '') // remove any html tags
+                    .replace(/.+}}/g, '') // traling 
+                    .replace(/{{.+/g, '') // ...and leading curly braces might remain; remove
+                    .replace(/^\$t.+/, '') // remove translations in translation (starting with "$t")
+                    .replace(/.+@.+/, '') // remove email addresses
+                    .replace(/.+=.+/, ''); // remove any html attributes remaining (e.g. "href=...")
+                
+                // Only spell check words with more than 3 letters.
+                // Also check if it's just a number, then no need to check the word.
+                if (word.length > 3 && isNaN(word.replace(/[+-]/g, ''))) {
                     let ok = spell.correct(word);
                     if (ok === false) {
 						spellErrors.push(word);
