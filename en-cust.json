@@ -7,6 +7,8 @@
         "api-key",
         "sie4-file",
         "eEkonomi",
-        "orgno"
+        "orgno",
+        "inkassogram",
+        "reminder-"
     ]
 }
