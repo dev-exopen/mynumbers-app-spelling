@@ -2,7 +2,7 @@
 The repo exists here: https://github.com/dev-exopen/mynumbers-app-spelling.
 The npm package exists here: https://www.npmjs.com/package/mynumbers-app-spelling
 
-Login as: utveckling@exopen.se
+Login as: exopendev
 
 ## Adding contributors
 If you don't want to login as this account it's possible to add contributors. Both in npmjs and github. Check the documentation for each system on how to do that. You must be logged in as "utveckling" to do that.
