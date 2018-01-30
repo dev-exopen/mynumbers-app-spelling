@@ -13,7 +13,7 @@ If you log in as utveckling, you can push directly to to github. Otherwise, you 
 1. Check in all the changes.
 2. Execute `npm version <command>`. Where `command` is "major", "minor" or "patch". Or edit the package.json version manually.
 3. Push the changes to github (or do a pull request and approve).
-4. Execute `npm publish` to publish a new version to npm. Make sure you are a contributor.
+4. Execute `npm publish` to publish a new version to npm. You can npm login as exopendev or npm add user to create your own user.
 5. Update the package version in the app you're using and run `yarn install`
 
 ## Add custom words to dictionary
