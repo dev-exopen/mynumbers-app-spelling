@@ -14,9 +14,9 @@ is-buffer@^1.1.4:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-1.1.6.tgz#efaa2ea9daa0d7ab2ea13a97b2b8ad51fefbe8be"
 
-nspell@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/nspell/-/nspell-1.0.4.tgz#20a76769181e3a365d111f926f58d78e7b845423"
+nspell@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/nspell/-/nspell-1.0.5.tgz#f5ab262506f3bbf4ca51c924736e133a53a1af73"
   dependencies:
     is-buffer "^1.1.4"
     trim "0.0.1"

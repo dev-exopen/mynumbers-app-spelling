@@ -96,10 +96,15 @@ function traverseSpellCheck(langJson, spell, spellErrors) {
                 // Only spell check words with more than 3 letters.
                 // Also check if it's just a number, then no need to check the word.
                 if (word.length > 3 && isNaN(word.replace(/[+-]/g, ''))) {
-                    let ok = spell.correct(word);
-                    if (ok === false) {
-						spellErrors.push(word);
-                    }
+                    // Some words contains characters that can't be replaced with empty string (as above).
+                    //    e.g. for "tjänsten/varan" we can't replace "/" with "".
+                    let allWords = word.split(/\//g);
+                    allWords.forEach(w => {
+                        let ok = spell.correct(w);
+                        if (ok === false) {
+                            spellErrors.push(w);
+                        }
+                    });
                 }    
             });
         }

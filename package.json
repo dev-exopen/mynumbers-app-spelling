@@ -1,12 +1,15 @@
 {
   "name": "mynumbers-app-spelling",
-  "version": "2.6.0",
+  "version": "2.7.0",
   "main": "index.js",
   "license": "MIT",
   "repository": "dev-exopen/mynumbers-app-spelling",
+  "scripts": {
+    "test": "node ./test.js"
+  },
   "dependencies": {
     "dictionary-en-us": "^2.0.0",
     "dictionary-sv": "^2.0.0",
-    "nspell": "^1.0.4"
+    "nspell": "^1.0.5"
   }
 }
