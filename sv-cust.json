@@ -407,6 +407,8 @@
 		"tjänster",
 		"momspliktiga",
 		"innebär",
-		"utbetalningskonto"
+        "utbetalningskonto",
+        "saknar",
+        "räkenskapsår"
     ]
 }
