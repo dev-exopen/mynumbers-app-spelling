@@ -409,6 +409,8 @@
 		"innebär",
         "utbetalningskonto",
         "saknar",
-        "räkenskapsår"
+        "räkenskapsår",
+		"inkassostatus"
+		"förföll"
     ]
 }
