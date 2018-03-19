@@ -411,6 +411,11 @@
         "saknar",
         "räkenskapsår",
 		"inkassostatus",
-		"förföll"
+        "förföll",
+        "företagssiffror", 
+        "kopplas", 
+        "funktioner", 
+        "enkelt", 
+        "tryggt"
     ]
 }
