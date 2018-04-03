@@ -430,6 +430,11 @@
         "rights",
         "reserved",
         "Skickade",
-        "betalningspåminnelser"
+        "betalningspåminnelser",
+        "menyn", 
+        "fliken", 
+        "ID-koden", 
+        "uppe", 
+        "ID-Kod"
     ]
 }
